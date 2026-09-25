@@ -1,0 +1,479 @@
+{
+  "sourceCommit": "fdf117722187597b552b55cd59afce92f60e04df",
+  "sourcePackage": "ANTLYST/packages/fin-core-react/src",
+  "license": "MIT",
+  "files": [
+    {
+      "file": "contracts/protocol.ts",
+      "origin": "types/index.ts",
+      "lines": 146,
+      "sources": [
+        {
+          "path": "types/index.ts",
+          "sha256": "0f464968aa3bf1a3938b41e2436e024134a298f1eb07893d94fe79fbf5129697"
+        }
+      ],
+      "extractedSha256": "4b3692751c9aa73909407d64d7d6d1585a1337d9ed7dc721f7e5559ceb9fd121"
+    },
+    {
+      "file": "contracts/cards.ts",
+      "origin": "components/chat/CardTypes.ts",
+      "lines": 223,
+      "sources": [
+        {
+          "path": "components/chat/CardTypes.ts",
+          "sha256": "5aed53f687b54ed3c96ffe14dbe09def81594d755128b9e42902e161a80de737"
+        }
+      ],
+      "extractedSha256": "d48ceb84dc47187b8eb45dd6021660cb9124da735b9df3b9b4bdad8d57f87da8"
+    },
+    {
+      "file": "pure/text.ts",
+      "origin": "lib/utils.ts, services/chat-event-helpers.ts",
+      "lines": 70,
+      "sources": [
+        {
+          "path": "lib/utils.ts",
+          "sha256": "b6c3465b2b5e786ca3752cab3e80abd3c7b7ad4029c271d3259541a2403b6a31"
+        },
+        {
+          "path": "services/chat-event-helpers.ts",
+          "sha256": "264b807ae6ff650c82ad4ce3247ceb5a6a4ed9e3e6d97600b1b3b28256ebe621"
+        }
+      ],
+      "extractedSha256": "140919e2c6838be6e66654e741eac08529b4b71ba5e18a63a14ed69ca3235e14"
+    },
+    {
+      "file": "model/chat.types.ts",
+      "origin": "stores/chat.types.ts",
+      "lines": 248,
+      "sources": [
+        {
+          "path": "stores/chat.types.ts",
+          "sha256": "7f7334c833ac6dbc29c7089f9cb076816725cb67323aec610d4f43f9e9132c0c"
+        }
+      ],
+      "extractedSha256": "d58bfe780ebe0f6db6fca48eca7660c84ceb7ccb7a3f2c0e3a282e52d5ad72dd"
+    },
+    {
+      "file": "model/chat.ops.ts",
+      "origin": "stores/chat.ops.ts",
+      "lines": 317,
+      "sources": [
+        {
+          "path": "stores/chat.ops.ts",
+          "sha256": "d913b67a7d08f94e9c7f721d35631dbf2409a2309965e072bad3e83076524cec"
+        }
+      ],
+      "extractedSha256": "cb187d2becd839d998d2ee3e120ccd2abbc9365c9660e177e080186fa7e69b87"
+    },
+    {
+      "file": "model/chat.reducer.ts",
+      "origin": "stores/chat.reducer.ts",
+      "lines": 555,
+      "sources": [
+        {
+          "path": "stores/chat.reducer.ts",
+          "sha256": "1fb70ab121f2722d7fe4eb4c6810c1d6cf561550bbe9c220a32fdad4e36344fa"
+        }
+      ],
+      "extractedSha256": "cafb260b3e137ac09e415b05d5ee7322026a71ab4093aaa645c78d42b5ea64f9"
+    },
+    {
+      "file": "model/chat.reducer.parts.ts",
+      "origin": "stores/chat.reducer.parts.ts",
+      "lines": 675,
+      "sources": [
+        {
+          "path": "stores/chat.reducer.parts.ts",
+          "sha256": "cab83ffba7e04ea71d1afc049d405faa975f9a14a597df0ae86b39d3238d4e1e"
+        }
+      ],
+      "extractedSha256": "f38fec08dfb5feda3902469b60454f5f5e81db35bfccea379032ba7b421b143c"
+    },
+    {
+      "file": "model/chat.task-reducer.ts",
+      "origin": "stores/chat.task-reducer.ts",
+      "lines": 47,
+      "sources": [
+        {
+          "path": "stores/chat.task-reducer.ts",
+          "sha256": "a091c8b21b7c186a3b3164186a5ba7fdbc6dcefd97f0c96ca827c85f70ef1153"
+        }
+      ],
+      "extractedSha256": "4acfc99d318c932b90b94c625d4649bd73bea9cac196e6fb978abeb834926272"
+    },
+    {
+      "file": "model/chat.selectors.ts",
+      "origin": "stores/chat.selectors.ts",
+      "lines": 259,
+      "sources": [
+        {
+          "path": "stores/chat.selectors.ts",
+          "sha256": "fd9658451ffd79ee51d03c4bfdb82b800f94240f5b8fb53e286a9ec53f6c1382"
+        }
+      ],
+      "extractedSha256": "6b27898fd2f0a22e24856afc2a8cc45142e5dde6aeed960bbdc6e3fa1ac20442"
+    },
+    {
+      "file": "model/chat.id.ts",
+      "origin": "stores/chat.id.ts",
+      "lines": 72,
+      "sources": [
+        {
+          "path": "stores/chat.id.ts",
+          "sha256": "9027b2145cf4697c1f128c66cc403a8e43093bc9b38fece7bffb5ca8b5087750"
+        }
+      ],
+      "extractedSha256": "b59da0819a361dd9ed15d0b2175f1b173d3e9372d5989d83ceec68699d35b4b8"
+    },
+    {
+      "file": "model/chat.merge-helpers.ts",
+      "origin": "stores/chat.merge-helpers.ts",
+      "lines": 37,
+      "sources": [
+        {
+          "path": "stores/chat.merge-helpers.ts",
+          "sha256": "7f751face903932cc65d6f2dde91f72c8efad3db2420fb12a8a24c44a470e0da"
+        }
+      ],
+      "extractedSha256": "cd20baf76bed82604c2e5cecc02e2b7c403761b31a7296bd80eecf0449f5661b"
+    },
+    {
+      "file": "translators/_plan-normalize.ts",
+      "origin": "services/translators/_plan-normalize.ts",
+      "lines": 109,
+      "sources": [
+        {
+          "path": "services/translators/_plan-normalize.ts",
+          "sha256": "27173d970ca866d3291df4200bd6d05644773e7a3c4927310d23f581f36dccb4"
+        }
+      ],
+      "extractedSha256": "845ea934174f68fff8ad726a6547f74fe06d29b74227c17e599b76421e67c017"
+    },
+    {
+      "file": "translators/_text-normalize.ts",
+      "origin": "services/translators/_text-normalize.ts",
+      "lines": 68,
+      "sources": [
+        {
+          "path": "services/translators/_text-normalize.ts",
+          "sha256": "0f9b4d8666386989f1b69ba94f0b374ec2866d964f1d4292a51c3d79583bfe58"
+        }
+      ],
+      "extractedSha256": "3a6ff5856342011e100371c912507124985feb58d877563e6afa7dc1c608de2f"
+    },
+    {
+      "file": "session-event-routing.ts",
+      "origin": "services/session-event-routing.ts",
+      "lines": 49,
+      "sources": [
+        {
+          "path": "services/session-event-routing.ts",
+          "sha256": "99519b01a5f7c7c7601385af864a3f4b0d775538b01198abf7b043543a8ca6a5"
+        }
+      ],
+      "extractedSha256": "57428b558e5348cb2d1195b156b9e8bd5d15ce6d0ded76daa8e32117c81df08f"
+    },
+    {
+      "file": "translators/live.common.ts",
+      "origin": "services/translators/live.ts",
+      "lines": 48,
+      "sources": [
+        {
+          "path": "services/translators/live.ts",
+          "sha256": "72b0b9253b5ff1bee0a234244ff159f00a57ae079a01b5b0e1a07a21c690e215"
+        }
+      ],
+      "extractedSha256": "e47874832ac52e0415a5150fe35de96d7bf1db0effff90f2c340162b49cbab51"
+    },
+    {
+      "file": "translators/live.subagent.ts",
+      "origin": "services/translators/live.ts",
+      "lines": 207,
+      "sources": [
+        {
+          "path": "services/translators/live.ts",
+          "sha256": "72b0b9253b5ff1bee0a234244ff159f00a57ae079a01b5b0e1a07a21c690e215"
+        }
+      ],
+      "extractedSha256": "0ef395a768379ec700b91edbfe25ae1b522039cd9a240f0340f69f769054a54b"
+    },
+    {
+      "file": "translators/live.events.ts",
+      "origin": "services/translators/live.ts",
+      "lines": 243,
+      "sources": [
+        {
+          "path": "services/translators/live.ts",
+          "sha256": "72b0b9253b5ff1bee0a234244ff159f00a57ae079a01b5b0e1a07a21c690e215"
+        }
+      ],
+      "extractedSha256": "ff50bd118fd487166fb643734a0224470758f1a07432a3e4b6a5ba54e5a59829"
+    },
+    {
+      "file": "translators/live.tasks.ts",
+      "origin": "services/translators/live.ts",
+      "lines": 236,
+      "sources": [
+        {
+          "path": "services/translators/live.ts",
+          "sha256": "72b0b9253b5ff1bee0a234244ff159f00a57ae079a01b5b0e1a07a21c690e215"
+        }
+      ],
+      "extractedSha256": "d1dd824426da99e873f36b54c0acebce8a47762ca838d71df31080705861cff3"
+    },
+    {
+      "file": "translators/live.tools.ts",
+      "origin": "services/translators/live.ts",
+      "lines": 267,
+      "sources": [
+        {
+          "path": "services/translators/live.ts",
+          "sha256": "72b0b9253b5ff1bee0a234244ff159f00a57ae079a01b5b0e1a07a21c690e215"
+        }
+      ],
+      "extractedSha256": "594698f738b0d3752806d097077d7c2da034f1cdd5701f6c68562bc4b4ad3d7f"
+    },
+    {
+      "file": "translators/live.ts",
+      "origin": "services/translators/live.ts",
+      "lines": 92,
+      "sources": [
+        {
+          "path": "services/translators/live.ts",
+          "sha256": "72b0b9253b5ff1bee0a234244ff159f00a57ae079a01b5b0e1a07a21c690e215"
+        }
+      ],
+      "extractedSha256": "da3bc86edf621f93beed9c7a5571fcb4749a3256aea71557ed6ab9bcbd84e0bb"
+    },
+    {
+      "file": "translators/history.message.ts",
+      "origin": "services/translators/history.ts",
+      "lines": 425,
+      "sources": [
+        {
+          "path": "services/translators/history.ts",
+          "sha256": "5082746bc4e13ce3d02fc3e0bef323368266e9261af311d3135c60bc6593f5c3"
+        }
+      ],
+      "extractedSha256": "050cd7dc94ff0d3fe1cb140e89618af00274717f74c12577bbb13290192b999e"
+    },
+    {
+      "file": "translators/history.subagent.ts",
+      "origin": "services/translators/history.ts",
+      "lines": 265,
+      "sources": [
+        {
+          "path": "services/translators/history.ts",
+          "sha256": "5082746bc4e13ce3d02fc3e0bef323368266e9261af311d3135c60bc6593f5c3"
+        }
+      ],
+      "extractedSha256": "0e7b586a3f6d69e0d8e9b3452150dc5fea0592594bfa21ea4dbd65495a0ccb30"
+    },
+    {
+      "file": "translators/history.ts",
+      "origin": "services/translators/history.ts",
+      "lines": 77,
+      "sources": [
+        {
+          "path": "services/translators/history.ts",
+          "sha256": "5082746bc4e13ce3d02fc3e0bef323368266e9261af311d3135c60bc6593f5c3"
+        }
+      ],
+      "extractedSha256": "eb617523d08cc0f05e302b5eea0976d571bc2fb7f0a10d3176664ab18032d81b"
+    },
+    {
+      "file": "model/chat.types.test.ts",
+      "origin": "stores/chat.types.test.ts",
+      "lines": 42,
+      "sources": [
+        {
+          "path": "stores/chat.types.test.ts",
+          "sha256": "45f12f87161641b8dcb44e0ce993df8db9ec56ff5f5a3f1e678787f59f6372f5"
+        }
+      ],
+      "extractedSha256": "f9bbbcc8b4794831913711f22bc257279f0bd8bae35402b64247d4c3b647f5e4"
+    },
+    {
+      "file": "model/chat.ops.test.ts",
+      "origin": "stores/chat.ops.test.ts",
+      "lines": 70,
+      "sources": [
+        {
+          "path": "stores/chat.ops.test.ts",
+          "sha256": "63c0127ce14b67572d6c3539966685baff581e8bd10a9b23000dea33f7875ec9"
+        }
+      ],
+      "extractedSha256": "c1f6faa9a3f7c45fb0cd300a9cec3bed8419d47d22fec7864b2d008e06ef3162"
+    },
+    {
+      "file": "model/chat.reducer.1.test.ts",
+      "origin": "stores/chat.reducer.test.ts",
+      "lines": 628,
+      "sources": [
+        {
+          "path": "stores/chat.reducer.test.ts",
+          "sha256": "2fad5ed083e452a1114f6268c4abfe4b740e4c1ba8a10cc0ed46f5db8f188b47"
+        }
+      ],
+      "extractedSha256": "287c498e5b9cba975ae1fbc28089429b79a4291f60dcc50797362111d03aa69c"
+    },
+    {
+      "file": "model/chat.reducer.2.test.ts",
+      "origin": "stores/chat.reducer.test.ts",
+      "lines": 634,
+      "sources": [
+        {
+          "path": "stores/chat.reducer.test.ts",
+          "sha256": "2fad5ed083e452a1114f6268c4abfe4b740e4c1ba8a10cc0ed46f5db8f188b47"
+        }
+      ],
+      "extractedSha256": "8ff1e7ca24f17302785972f7fe150eec710245ac702384e21cb34deb1b6c58d2"
+    },
+    {
+      "file": "model/chat.reducer.3.test.ts",
+      "origin": "stores/chat.reducer.test.ts",
+      "lines": 518,
+      "sources": [
+        {
+          "path": "stores/chat.reducer.test.ts",
+          "sha256": "2fad5ed083e452a1114f6268c4abfe4b740e4c1ba8a10cc0ed46f5db8f188b47"
+        }
+      ],
+      "extractedSha256": "c5071341378b59cdee85d18a2d07aa8de6512f4119af5dcc65d4d7b7b34b7848"
+    },
+    {
+      "file": "model/chat.selectors.test.ts",
+      "origin": "stores/chat.selectors.test.ts",
+      "lines": 493,
+      "sources": [
+        {
+          "path": "stores/chat.selectors.test.ts",
+          "sha256": "6e3b208b62d73e47d60aa51ec82bffc205e26a70373de1397caca97d95ce944d"
+        }
+      ],
+      "extractedSha256": "bc764131bbe70f863dea9baa71af60b0edfac5cb9113bf70ab609f947cbb7361"
+    },
+    {
+      "file": "model/chat.id.test.ts",
+      "origin": "stores/chat.id.test.ts",
+      "lines": 98,
+      "sources": [
+        {
+          "path": "stores/chat.id.test.ts",
+          "sha256": "5bc895888365e0c0cfcc5f6dc8954fd50266987859244444cb45b8f133f686bf"
+        }
+      ],
+      "extractedSha256": "8f0a84d044486ae1c8b6e135f5682a3c6cb9fd207fb4445905ccffe73686b49c"
+    },
+    {
+      "file": "translators/_plan-normalize.test.ts",
+      "origin": "services/translators/_plan-normalize.test.ts",
+      "lines": 91,
+      "sources": [
+        {
+          "path": "services/translators/_plan-normalize.test.ts",
+          "sha256": "5e6c6569c42f055c43d8d69589842ea8d89a236ebd45999e43e054d93b10cca1"
+        }
+      ],
+      "extractedSha256": "a62316343cfba9d841c1201827d8b12e2bf9941f018ecf822a490f292aefe244"
+    },
+    {
+      "file": "translators/_text-normalize.test.ts",
+      "origin": "services/translators/_text-normalize.test.ts",
+      "lines": 69,
+      "sources": [
+        {
+          "path": "services/translators/_text-normalize.test.ts",
+          "sha256": "72e9adf4de5ec00230473aa1bb1bddeac69ff4d52c3ca7b8408b415264627ee6"
+        }
+      ],
+      "extractedSha256": "96b517dbb6d69fbfee701171b474ce47a3e32a8ebcdf5d8ec6fae29b65b54d3c"
+    },
+    {
+      "file": "translators/history.test.ts",
+      "origin": "services/translators/history.test.ts",
+      "lines": 554,
+      "sources": [
+        {
+          "path": "services/translators/history.test.ts",
+          "sha256": "8be4feb529cd7fb57bb35738f7371a604d85a6c977f449246f18979a18a61421"
+        }
+      ],
+      "extractedSha256": "bb8007ca100b26d6d504695a76d7e1296651a05c361e8fa2368368e926fd849a"
+    },
+    {
+      "file": "translators/live.1.test.ts",
+      "origin": "services/translators/live.test.ts",
+      "lines": 674,
+      "sources": [
+        {
+          "path": "services/translators/live.test.ts",
+          "sha256": "24ffbb4fc52c8d57e1f1a781bda021b6b5f8bab1dff25dcee3e095073776f2a7"
+        }
+      ],
+      "extractedSha256": "6e80e208490e16d88d52fdf80c2577563a289eed8b05ec6d368189c18501d01a"
+    },
+    {
+      "file": "translators/live.2.test.ts",
+      "origin": "services/translators/live.test.ts",
+      "lines": 337,
+      "sources": [
+        {
+          "path": "services/translators/live.test.ts",
+          "sha256": "24ffbb4fc52c8d57e1f1a781bda021b6b5f8bab1dff25dcee3e095073776f2a7"
+        }
+      ],
+      "extractedSha256": "b460d2e09c734f17fe0e0a4748d3153b8d3429c51542b1300ecfbf0a1ce7788d"
+    },
+    {
+      "file": "translators/live-byte-equal.test.ts",
+      "origin": "services/translators/live-byte-equal.test.ts",
+      "lines": 268,
+      "sources": [
+        {
+          "path": "services/translators/live-byte-equal.test.ts",
+          "sha256": "a39e66d39716c62e00b5bf4b08f092833fada03ca490b6d640143da327455867"
+        }
+      ],
+      "extractedSha256": "89061ea28a80d11ef2f477889ddad85ced75d94bd7d830557ca19e8e6b13ea14"
+    },
+    {
+      "file": "translators/live-tool-idempotency.test.ts",
+      "origin": "services/translators/live-tool-idempotency.test.ts",
+      "lines": 125,
+      "sources": [
+        {
+          "path": "services/translators/live-tool-idempotency.test.ts",
+          "sha256": "11e24106cafbcb970b7514d49fd2f70133f68a5cb8e34b2e13760e81519f882d"
+        }
+      ],
+      "extractedSha256": "cc86fda2cb0c324901af65c2811317a4cce338788f9add8522a842d069b9435f"
+    },
+    {
+      "file": "translators/subagent-segments-parity.test.ts",
+      "origin": "services/translators/subagent-segments-parity.test.ts",
+      "lines": 393,
+      "sources": [
+        {
+          "path": "services/translators/subagent-segments-parity.test.ts",
+          "sha256": "cbb45db235de68456f6456ef84aff8cf59617d52b7091dcfe1c7983c0a6f79e0"
+        }
+      ],
+      "extractedSha256": "36cf4bb758e8bc6a540bc325e215c4cbb1d76325afb8db505cb65c02581a7e6e"
+    },
+    {
+      "file": "session-event-routing.test.ts",
+      "origin": "services/session-event-routing.test.ts",
+      "lines": 31,
+      "sources": [
+        {
+          "path": "services/session-event-routing.test.ts",
+          "sha256": "e06cb747474f4ca3bc1d44d85ff3e29c80f99d742d6b790c4acfbd06e271492c"
+        }
+      ],
+      "extractedSha256": "e911ac194fe524330f944aa48a59e53659d7f7fcd950eafe0140a51eed55a8e4"
+    }
+  ]
+}

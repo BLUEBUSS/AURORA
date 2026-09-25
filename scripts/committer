@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+import { execFileSync } from "node:child_process";
+import { lstatSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const [message, ...files] = process.argv.slice(2);
+const git = (...args) => execFileSync("git", args, { cwd: root, encoding: "utf8", maxBuffer: 8 * 1024 * 1024 });
+try {
+  if (!message?.trim() || !files.length) throw new Error("Usage: node scripts/committer <message> <file> [...files]");
+  if (path.resolve(git("rev-parse", "--show-toplevel").trim()) !== root) throw new Error("Wrong Git repository.");
+  const selected = new Set();
+  for (const filename of files) {
+    const relative = path.relative(root, path.resolve(root, filename)).replaceAll("\\", "/");
+    if (!relative || relative === ".." || relative.startsWith("../") || path.isAbsolute(relative)) throw new Error("List files inside this repository explicitly.");
+    if (relative.split("/").some((part) => ["node_modules", "dist", "dist-runtime", ".runtime", "artifacts", ".git"].includes(part))) {
+      throw new Error("Generated files cannot be committed by this helper.");
+    }
+    const stat = lstatSync(path.join(root, relative));
+    if (!stat.isFile() || stat.isSymbolicLink()) throw new Error("Only explicit regular files are accepted.");
+    selected.add(relative);
+  }
+  // Work on unborn branches without resetting or unstaging unrelated work.
+  const staged = git("diff", "--cached", "--name-only", "-z").split("\0").filter(Boolean);
+  if (staged.some((file) => !selected.has(file))) throw new Error("Unrelated staged files exist; nothing was changed.");
+  git("add", "--", ...selected);
+  const final = git("diff", "--cached", "--name-only", "-z").split("\0").filter(Boolean);
+  if (!final.length || final.some((file) => !selected.has(file))) throw new Error("Staged content does not match the requested scope.");
+  process.stdout.write(git("commit", "-m", message));
+  console.log(`Committed ${final.length} explicitly selected files.`);
+} catch (error) {
+  console.error(error instanceof Error ? error.message : "Commit failed.");
+  process.exitCode = 1;
+}

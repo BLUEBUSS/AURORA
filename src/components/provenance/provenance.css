@@ -1,0 +1,39 @@
+.provenance-reference { vertical-align: super; font-size: 10px; line-height: 0; white-space: nowrap; }
+.provenance-reference > button { padding: 2px 3px; border-radius: 3px; color: var(--accent); font-size: 11px; font-weight: 550; line-height: 1.2; }
+.provenance-reference > button:hover { background: var(--selected); }
+.modal.provenance-dialog { width: 720px; max-height: min(80dvh, 760px); overflow-y: auto; }
+.provenance-dialog .provenance-loading { display: flex; align-items: center; gap: 8px; padding: 18px 0; color: var(--muted); }
+.provenance-error > p, .provenance-dialog .provenance-fetch-error { margin-bottom: 14px; color: var(--error); overflow-wrap: anywhere; }
+.provenance-entry-heading { display: flex; align-items: center; gap: 9px; margin-bottom: 20px; }
+.provenance-entry-heading > strong { min-width: 0; font-size: 15px; font-weight: 600; overflow-wrap: anywhere; }
+.provenance-entry-heading > span { margin-left: auto; color: var(--muted); font-size: 11px; }
+.provenance-metadata { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px 24px; margin: 0 0 20px; }
+.provenance-metadata > div { min-width: 0; }
+.provenance-metadata dt { font-size: 11px; color: var(--muted); margin-bottom: 3px; }
+.provenance-metadata dd { margin: 0; font-size: 13px; color: var(--body); overflow-wrap: anywhere; }
+.provenance-dialog .provenance-fields { padding: 10px 12px; margin-bottom: 15px; font-size: 12px; color: var(--accent); background: var(--selected); border-radius: 5px; overflow-wrap: anywhere; }
+.provenance-summary { padding-block: 18px; border-top: 1px solid var(--line); }
+.provenance-result + .provenance-result { padding-top: 16px; border-top: 1px solid var(--line); margin-top: 16px; }
+.provenance-result h3, .provenance-page h3, .provenance-metric h3 { font-size: 14px; line-height: 1.7; font-weight: 600; margin-bottom: 8px; }
+.provenance-dialog .provenance-result p, .provenance-dialog .provenance-page p { font-size: 13px; line-height: 1.85; margin-bottom: 10px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.provenance-source-link { display: inline-flex; align-items: center; gap: 6px; max-width: 100%; color: var(--accent); font-size: 12px; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.provenance-table-scroll { overflow-x: auto; max-width: 100%; margin-bottom: 12px; }
+.provenance-table { border-collapse: collapse; width: 100%; font-size: 12px; line-height: 1.7; text-align: left; }
+.provenance-table th { color: var(--text); font-weight: 550; background: var(--surface); }
+.provenance-table th, .provenance-table td { border-bottom: 1px solid var(--line); padding: 8px 11px; vertical-align: top; min-width: 90px; max-width: 300px; overflow-wrap: anywhere; white-space: pre-wrap; }
+.provenance-table .is-cited-field { background: var(--selected); }
+.provenance-dialog .provenance-caption { color: var(--muted); font-size: 12px; }
+.provenance-raw { max-height: 350px; overflow: auto; padding: 14px; margin: 0; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); color: var(--body); font: 12px/1.8 var(--font); white-space: pre-wrap; overflow-wrap: anywhere; }
+.provenance-original { margin-bottom: 16px; }
+.provenance-original summary { cursor: pointer; font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+.provenance-metric p > strong { font-size: 22px; font-weight: 600; color: var(--text); }
+.provenance-metric p > span { margin-left: 8px; font-size: 12px; color: var(--muted); }
+.provenance-metric small { color: var(--muted); }
+.provenance-full-data { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
+.provenance-full-data h3 { font-size: 14px; font-weight: 550; margin-bottom: 12px; }
+.provenance-full-data h3 > span { margin-left: 8px; font-size: 12px; font-weight: 400; color: var(--muted); }
+@media (max-width: 600px) {
+  .modal.provenance-dialog { padding: 18px; max-width: calc(100vw - 24px); }
+  .provenance-metadata { gap: 12px; }
+  .provenance-table th, .provenance-table td { padding: 7px 8px; }
+}

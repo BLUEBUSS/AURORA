@@ -1,0 +1,329 @@
+@font-face {
+  font-family: "Aurora Bodoni";
+  src: url("/fonts/BodoniModa.ttf") format("truetype");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+.aurora-wordmark {
+  font-family: "Aurora Bodoni", Georgia, serif;
+  font-weight: 500;
+  font-optical-sizing: auto;
+  letter-spacing: 0.095em;
+  line-height: 1;
+  display: inline-block;
+  font-kerning: normal;
+}
+.brand .aurora-wordmark {
+  font-size: 27px;
+  letter-spacing: 0.07em;
+  font-weight: 550;
+  vertical-align: middle;
+}
+/* Small optical sizing keeps Bodoni's hairlines legible on light surfaces. */
+:root:not([data-theme="dark"]) .aurora-wordmark {
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" 6;
+  font-weight: 650;
+  color: #124f36;
+}
+:root:not([data-theme="dark"]) .brand .aurora-wordmark {
+  font-weight: 700;
+}
+.main-heading .welcome-context {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
+}
+.sidebar-section-heading {
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.sidebar-scroll > .new-research {
+  margin-bottom: 15px;
+}
+.welcome-page {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  scrollbar-width: thin;
+  display: flex;
+  flex-direction: column;
+}
+.welcome-content {
+  width: calc(100% - 80px);
+  max-width: 1000px;
+  margin: auto;
+  padding: 42px 0 46px;
+}
+.welcome-identity {
+  text-align: center;
+  margin: 0 0 38px;
+  color: var(--accent);
+}
+.welcome-identity .aurora-wordmark {
+  font-size: clamp(44px, 4.7vw, 68px);
+  letter-spacing: 0.085em;
+  padding-left: 0.085em;
+}
+.wordmark-rule {
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: var(--accent);
+  margin: 21px auto 0;
+  opacity: 0.55;
+}
+.welcome-content .composer-wrap {
+  padding: 0;
+  max-width: none;
+  background: transparent;
+}
+.welcome-content .composer {
+  background: var(--surface);
+}
+.welcome-content .composer textarea {
+  min-height: 26px;
+}
+.welcome-content .composer-caption {
+  padding-top: 12px;
+  font-size: 10px;
+}
+.research-examples {
+  margin-top: 35px;
+}
+.research-examples > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  gap: 12px;
+}
+.research-examples > header > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.research-examples h2 {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.research-examples > header > div > span {
+  font-size: 11px;
+  color: var(--muted);
+}
+.case-pager {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--muted);
+}
+.case-pager > small {
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  margin-right: 7px;
+}
+.case-pager .icon-button {
+  height: 25px;
+  width: 25px;
+}
+.research-case-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.research-case {
+  text-align: left;
+  padding: 19px 20px 17px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--bg);
+  transition:
+    border-color 160ms,
+    background-color 160ms,
+    transform 160ms;
+}
+.research-case:hover {
+  background: var(--surface);
+  border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
+  transform: translateY(-2px);
+}
+.case-category {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  margin-bottom: 18px;
+}
+.case-category > svg {
+  opacity: 0.6;
+}
+.research-case:hover .case-category > svg {
+  opacity: 1;
+  color: var(--accent);
+}
+.case-subject {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 10px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+.case-subject > strong {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.075em;
+  color: var(--accent);
+}
+.case-subject > span {
+  font-size: 10px;
+  color: var(--muted);
+}
+.research-case h3 {
+  font-size: 15px;
+  line-height: 1.7;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 9px;
+}
+.research-case p {
+  font-size: 12px;
+  line-height: 1.85;
+  color: var(--muted);
+  margin: 0 0 20px;
+}
+.case-tags {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  font-size: 9px;
+  color: var(--muted);
+  margin-top: auto;
+}
+.case-tags > span {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 3px;
+}
+.case-footnote {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 14px;
+  text-align: center;
+}
+.workspace-destinations {
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+.workspace-entry-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+}
+.workspace-entry {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  text-align: left;
+}
+.workspace-entry:hover,
+.workspace-entry[aria-current="page"] {
+  background: var(--selected);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+}
+.workspace-entry > svg:first-child {
+  color: var(--accent);
+}
+.workspace-entry > span {
+  flex: 1;
+}
+.workspace-entry strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 550;
+}
+.workspace-entry small {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+.workspace-entry > svg:last-child {
+  color: var(--muted);
+}
+@media (min-width: 1700px) {
+  .welcome-content {
+    max-width: 1060px;
+  }
+  .research-case {
+    padding: 23px 24px 20px;
+  }
+  .research-case h3 {
+    font-size: 17px;
+  }
+  .research-case p {
+    font-size: 13px;
+  }
+  .welcome-identity {
+    margin-bottom: 44px;
+  }
+}
+@media (max-width: 750px) {
+  .welcome-content {
+    width: calc(100% - 40px);
+    padding: 35px 0;
+  }
+  .research-case-grid {
+    grid-template-columns: 1fr;
+  }
+  .welcome-identity {
+    margin-bottom: 26px;
+  }
+  .welcome-identity .aurora-wordmark {
+    font-size: 46px;
+  }
+  .research-examples {
+    margin-top: 26px;
+  }
+  .research-case {
+    padding: 17px 20px;
+  }
+  .case-category {
+    margin-bottom: 10px;
+  }
+  .research-case p {
+    margin-bottom: 12px;
+  }
+  .case-subject {
+    margin-bottom: 4px;
+  }
+  .research-examples > header > div:first-child {
+    gap: 9px;
+  }
+  .research-examples > header > div > span {
+    font-size: 10px;
+  }
+  .welcome-content .composer {
+    padding: 12px 13px;
+  }
+  .welcome-content .composer textarea {
+    min-height: 26px;
+  }
+  .workspace-entry {
+    padding: 10px;
+    gap: 8px;
+  }
+  .workspace-entry > svg:last-child {
+    display: none;
+  }
+}

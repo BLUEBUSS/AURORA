@@ -1,0 +1,9 @@
+node_modules/
+dist/
+dist-runtime/
+.aurora-state/
+.env*
+!.env.example
+.runtime/
+artifacts/
+*.tsbuildinfo

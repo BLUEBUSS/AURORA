@@ -1,0 +1,191 @@
+.sidebar-group-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7px;
+  margin-bottom: 9px;
+  gap: 8px;
+  color: var(--muted);
+}
+.sidebar-group-heading h2 {
+  font-size: 15px;
+  line-height: 1.6;
+  font-weight: 600;
+  color: var(--body);
+}
+.sidebar-group-heading > div {
+  display: flex;
+  gap: 2px;
+}
+.sidebar-group-heading .icon-button {
+  width: 24px;
+  height: 24px;
+}
+.group-collapse {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+.sidebar-project {
+  margin: 3px 0 5px;
+}
+.sidebar .project-label {
+  font-size: 15px;
+  font-weight: 550;
+  line-height: 1.55;
+  color: var(--text);
+  padding: 10px 7px;
+  gap: 9px;
+  border-radius: 5px;
+}
+.sidebar .project-label:hover {
+  background: var(--hover);
+}
+.sidebar .project-label > span {
+  flex: 1;
+}
+.sidebar .project-label > svg:first-child {
+  color: var(--body);
+}
+.sidebar .project-label > svg:last-child {
+  color: var(--muted);
+}
+.sidebar .project-label small {
+  font-size: 10px;
+  font-weight: 400;
+  min-width: 8px;
+}
+.project-children {
+  margin: 3px 0 6px 13px;
+  padding-left: 7px;
+  border-left: 1px solid var(--line);
+}
+.project-children .thread-main {
+  padding: 9px 6px;
+  gap: 9px;
+}
+.project-children .thread-row.active::before {
+  left: -8px;
+}
+.project-children .thread-more {
+  right: 0;
+}
+.project-empty-new {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 6px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.project-empty-new:hover {
+  color: var(--accent);
+}
+.sidebar-chats-group {
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+  margin-top: 10px;
+}
+.sidebar-chats-group .sidebar-group-heading {
+  margin-bottom: 5px;
+}
+.text-thread .thread-main {
+  padding: 9px 9px;
+  min-height: 38px;
+}
+.text-thread .thread-main > span {
+  font-size: 13px;
+  flex: 1;
+  padding-right: 12px;
+}
+.text-thread .thread-more {
+  top: 6px;
+}
+.sidebar .sidebar-empty {
+  font-size: 11px;
+  margin: 0;
+  padding: 10px 7px 15px;
+}
+.workspace-menu {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  width: 264px;
+  max-width: calc(100vw - 16px);
+  max-height: calc(100dvh - 96px);
+  overflow: auto;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 12px 42px #0004;
+  font: 14px/1.6 var(--font);
+}
+.workspace-menu::backdrop {
+  background: transparent;
+}
+.workspace-menu-account {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 10px 17px;
+}
+.workspace-menu-account .profile-avatar {
+  width: 35px;
+  height: 35px;
+  font-size: 17px;
+  background: var(--selected);
+}
+.workspace-menu-account strong {
+  font-size: 14px;
+  font-weight: 550;
+  display: block;
+}
+.workspace-menu-account small {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.workspace-menu-group {
+  padding: 6px 0;
+  border-top: 1px solid var(--line);
+}
+.workspace-menu .workspace-menu-group > button {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  text-align: left;
+  font-size: 14px;
+  color: var(--body);
+}
+.workspace-menu .workspace-menu-group > button > svg {
+  color: var(--body);
+}
+.workspace-menu .workspace-menu-group > button:hover,
+.workspace-menu .workspace-menu-group > button:focus-visible {
+  background: var(--hover);
+  color: var(--text);
+}
+.profile-button[aria-expanded="true"] {
+  background: var(--hover);
+  border-radius: 6px;
+}
+@media (max-width: 600px) {
+  .workspace-menu {
+    max-height: calc(100dvh - 100px);
+  }
+  .sidebar .project-label {
+    font-size: 15px;
+  }
+}

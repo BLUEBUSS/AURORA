@@ -1,0 +1,49 @@
+{
+  "name": "aurora-research",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.19.0",
+  "engines": {
+    "node": ">=22.13.0",
+    "pnpm": ">=11 <12"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5174 --strictPort",
+    "build": "pnpm build:frontend && pnpm build:runtime",
+    "build:frontend": "tsc --noEmit && vite build",
+    "build:runtime": "tsc -p tsconfig.runtime.json && esbuild runtime/main.ts --bundle --platform=node --format=esm --target=node22 --outfile=dist-runtime/main.mjs",
+    "start": "node dist-runtime/main.mjs",
+    "preview": "vite preview --host 127.0.0.1 --port 5174 --strictPort",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.runtime.json",
+    "lint": "oxlint src runtime",
+    "test": "vitest run",
+    "test:runtime": "vitest run --config vitest.runtime.config.ts",
+    "test:e2e": "playwright test",
+    "check:source": "node scripts/check-public-source.mjs",
+    "test:release": "node --test scripts/check-public-source.test.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^22.0.0",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "esbuild": "0.25.12",
+    "jsdom": "^26.1.0",
+    "oxlint": "^1.57.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.0.5",
+    "vitest": "^4.1.11"
+  }
+}

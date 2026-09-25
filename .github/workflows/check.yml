@@ -1,0 +1,50 @@
+name: Frontend checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: frontend-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11.19.0
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check:source
+      - run: pnpm test:release
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm test
+      - run: pnpm test:runtime
+      - run: pnpm build
+      - run: pnpm audit --audit-level=moderate
+      - run: pnpm exec playwright install --with-deps chromium
+        if: runner.os == 'Linux'
+      - run: pnpm exec playwright install chromium
+        if: runner.os == 'Windows'
+      - run: pnpm test:e2e
+        env:
+          CI: true
+
+# Fixtures use synthetic data, no model keys, no release or deployment steps.

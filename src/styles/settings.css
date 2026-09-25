@@ -1,0 +1,266 @@
+.modal.settings-dialog {
+  width: 780px;
+  height: 500px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  overflow: hidden;
+}
+.modal.settings-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+.modal.settings-dialog > header {
+  flex-shrink: 0;
+  min-height: 68px;
+  margin: 0;
+  padding: 18px 22px 18px 24px;
+  border-bottom: 1px solid var(--line);
+}
+.modal.settings-dialog > header h2 {
+  font-size: 20px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+.settings-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+}
+.settings-nav {
+  flex: 0 0 184px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 5px;
+  padding: 18px 10px;
+  border-right: 1px solid var(--line);
+  background: var(--surface);
+}
+.settings-tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: var(--body);
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.settings-tab:hover {
+  background: var(--hover);
+  color: var(--text);
+}
+.settings-tab[aria-selected="true"] {
+  color: var(--accent);
+  background: var(--selected);
+  font-weight: 600;
+}
+.settings-content {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  padding: 24px 28px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+.settings-content > [role="tabpanel"] {
+  min-width: 0;
+}
+.settings-content > [hidden] {
+  display: none;
+}
+.settings-title {
+  margin: 0 0 21px;
+  font-size: 20px;
+  font-weight: 650;
+  line-height: 1.4;
+  color: var(--text);
+}
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+.settings-row:first-of-type {
+  padding-top: 6px;
+}
+.settings-row-copy {
+  min-width: 0;
+}
+.settings-row-copy > label,
+.settings-row-copy > strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+}
+.settings-dialog .settings-row-copy > p,
+.settings-dialog .settings-description {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.75;
+}
+.settings-theme-select {
+  width: 136px;
+  flex-shrink: 0;
+  min-height: 36px;
+  font-size: 14px;
+  background: var(--bg);
+}
+.settings-dialog .page-button {
+  flex-shrink: 0;
+  min-height: 36px;
+  font-size: 13px;
+}
+.settings-title + .settings-description {
+  margin-top: -11px;
+  margin-bottom: 18px;
+}
+.settings-account-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0 17px;
+  border-bottom: 1px solid var(--line);
+}
+.settings-account-copy {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.settings-account-copy > strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 550;
+}
+.settings-account-copy > span {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.settings-connection-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.settings-connection-status.is-connected {
+  color: var(--accent);
+}
+.settings-dialog .settings-error {
+  margin: 14px 0;
+  color: var(--error);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.settings-dialog .settings-running-note {
+  margin: 13px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+.settings-connection-actions,
+.settings-account-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+.settings-login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 13px;
+  margin-top: 18px;
+}
+.settings-login-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  width: 100%;
+}
+.settings-login-fields .field {
+  min-width: 0;
+}
+.settings-login-fields .field > span {
+  font-size: 12px;
+  font-weight: 500;
+}
+.settings-login-fields input {
+  font-size: 14px;
+}
+.settings-account-actions {
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.settings-dialog .settings-logout {
+  color: var(--error);
+}
+.settings-demo-row {
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+.settings-dialog .settings-demo-hint {
+  margin-top: 17px;
+}
+@media (max-width: 600px) {
+  .modal.settings-dialog {
+    width: calc(100vw - 24px);
+    max-width: calc(100vw - 24px);
+    height: 560px;
+    max-height: calc(100dvh - 24px);
+  }
+  .modal.settings-dialog > header {
+    min-height: 62px;
+    padding: 15px 16px;
+  }
+  .settings-body {
+    flex-direction: column;
+  }
+  .settings-nav {
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: 4px;
+    padding: 8px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .settings-tab {
+    flex: 1;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 5px;
+    font-size: 13px;
+    text-align: center;
+  }
+  .settings-tab svg {
+    width: 15px;
+    height: 15px;
+  }
+  .settings-content {
+    padding: 22px 18px;
+    scrollbar-gutter: auto;
+  }
+  .settings-row {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .settings-theme-select {
+    width: 126px;
+  }
+  .settings-login-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
