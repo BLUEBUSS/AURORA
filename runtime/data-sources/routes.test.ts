@@ -28,13 +28,21 @@ it("requires a local session and origin, saves without network calls, and probes
   expect((await action({ id: "unknown", action: "save", credential: "fixture-private-key" })).status).toBe(400);
 });
 it("serializes model edits against data probes", async () => {
-  await action({ id: "fred", action: "save", credential: "fixture-private-key" });
+  expect((await action({ id: "fred", action: "save", credential: "fixture-private-key" })).status).toBe(200);
   let finish!: (value: Awaited<ReturnType<DataProbe>>) => void;
-  probe.mockImplementationOnce(() => new Promise(resolve => { finish = resolve; }));
+  const heldProbe = new Promise<Awaited<ReturnType<DataProbe>>>(resolve => { finish = resolve; });
+  probe.mockImplementationOnce(() => heldProbe);
   const testing = action({ id: "fred", action: "test" });
-  await expect.poll(() => probe.mock.calls.length).toBe(1);
-  expect((await action({ id: "fred", action: "remove" })).status).toBe(409);
-  expect((await fetch(app.origin + "/fin-core/api/model", { method: "DELETE", headers })).status).toBe(409);
-  finish({ ok: true, code: "ok", message: "测试通过", checkedAt: new Date().toISOString() }); await testing;
+  void testing.catch(() => undefined);
+  try {
+    // Windows DPAPI launches PowerShell before entering the probe; cold CI hosts exceed
+    // Vitest's default one-second poll window. Wait within the protector's bounded timeout.
+    await expect.poll(() => probe.mock.calls.length, { timeout: 20000 }).toBe(1);
+    expect((await action({ id: "fred", action: "remove" })).status).toBe(409);
+    expect((await fetch(app.origin + "/fin-core/api/model", { method: "DELETE", headers })).status).toBe(409);
+  } finally {
+    finish({ ok: true, code: "ok", message: "测试通过", checkedAt: new Date().toISOString() });
+    await testing; // Drain the held request even when an assertion fails, before server teardown.
+  }
   expect((await action({ id: "fred", action: "remove" })).status).toBe(200);
 });
