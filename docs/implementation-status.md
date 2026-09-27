@@ -14,6 +14,6 @@
 
 完整文件/报告管理、自选、提醒调度、复杂图表、多媒体、Word/PDF、批注、公开分享和正式安装升级工具尚未完成。演示页面不代表这些能力已接通。项目分组和置顶仍依赖浏览器元数据。
 
-当前代码在 AURORA 自己的 Git 仓库与分支中，原 ANLYST 基线保持独立。用户已选择 MIT，并授权先推送 BLUEBUSS/AURORA 私有仓库验证 CI；转公开仍需再次确认。
+当前代码在 AURORA 自己的 Git 仓库与分支中，原 ANLYST 基线保持独立。用户已选择 MIT；完成 BLUEBUSS/AURORA 私有仓库 Windows/Linux CI 验证后，于 2026-09-27 明确确认转公开，仓库现已公开。
 
 以 README、engine-byok-acceptance.md 和 release-checklist.md 为当前说明。其余早期设计/验收文档保留历史证据，不应将早期“引擎未迁入”等描述作为现状。

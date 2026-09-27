@@ -1,6 +1,6 @@
 # GitHub Alpha 发布验收清单
 
-更新：2026-09-27。用户已选择 MIT，并授权 BLUEBUSS/AURORA 先以私有仓库验证 CI；转公开仍待确认。本清单区分 Alpha 源码预览与完整正式产品。
+更新：2026-09-27。用户已选择 MIT；BLUEBUSS/AURORA 完成私有仓库 CI 验证后，经用户明确确认已转为公开。本清单区分 Alpha 源码预览与完整正式产品。
 
 ## Alpha 源码候选门禁
 
@@ -14,7 +14,7 @@
 - [x] 浏览器全量35项中34项通过；一条旧Logo断言按已确认需求修正，所属4项回归全部通过。云端将对最终提交重新跑完整35项。
 - [x] 独立 Alpha 已形成本地提交 efe628d，Git 历史扫描通过；私有远端 main 已建立，原始检查点和本机 bundle 备份保留。
 - 云端最终门禁：查看 https://github.com/BLUEBUSS/AURORA/actions 的当前提交，Windows、Linux 和 secrets 三项均须成功。文档不以本机结果代替云端状态。
-- [ ] 用户确认转为公开仓库。不得从“私有验证”推断为已授权公开。
+- [x] 用户明确指令“转公开”，仓库已转换并通过匿名 API 确认为 PUBLIC。研究代码验收提交为 6caeb32；其 Windows/Linux/secrets 三项均通过，运行记录为 actions/runs/36298114518。
 
 ## Alpha 已知限制（不冒充正式产品）
 

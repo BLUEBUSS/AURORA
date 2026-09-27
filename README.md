@@ -16,7 +16,7 @@ pnpm build
 pnpm start
 ```
 
-打开 http://127.0.0.1:5174/ 。程序同时提供前端、HTTP 与 WebSocket，不需要安装相邻 ANLYST 项目。仓库尚为私有时，需要仓库访问权限才能克隆。
+打开 http://127.0.0.1:5174/ 。程序同时提供前端、HTTP 与 WebSocket，不需要安装相邻 ANLYST 项目。源码仓库已公开，可按上述命令克隆。
 
 Windows 构建完成后，也可运行：
 
