@@ -14,6 +14,7 @@ import { FilesPage, ProjectsPage, RemindersPage, ReportsPage, WatchlistPage } fr
 export default function App() {
   const s = useWorkspace();
   const status = useConnection((c) => c.status);
+  const setupRequired = useConnection((c) => c.runtime?.setupRequired);
   const resolved = useTheme();
   const compact = useMedia("(max-width: 1100px)");
   const [settings, setSettings] = useState<SettingsTab | null>(null);
@@ -21,6 +22,7 @@ export default function App() {
   const showRight = s.page === "research" && !!session?.messages.length && s.rightOpen;
   const layout = usePanelLayout(s.leftOpen, showRight);
   useEffect(() => initializeResearch(), []);
+  useEffect(() => { if (setupRequired && status === "connected") setSettings("models"); }, [setupRequired, status]);
   useEffect(() => {
     function key(e: KeyboardEvent) {
       const tag = (e.target as HTMLElement)?.tagName;

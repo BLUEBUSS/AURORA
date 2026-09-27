@@ -1,16 +1,18 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
-import { Cable, FlaskConical, SlidersHorizontal } from "lucide-react";
+import { Cable, FlaskConical, SlidersHorizontal, Cpu, Database } from "lucide-react";
 import { useMedia } from "../hooks";
 import { useWorkspace } from "../state";
 import { Modal } from "./ui";
-import { ConnectionSettings, DemoSettings, GeneralSettings } from "./settings";
+import { ConnectionSettings, DemoSettings, GeneralSettings, ModelSettings, DataSourceSettings } from "./settings";
 import "../styles/settings.css";
 
-export type SettingsTab = "general" | "connection" | "demo";
+export type SettingsTab = "general" | "connection" | "models" | "data" | "demo";
 
 const categories = [
   { id: "general", label: "常规", Icon: SlidersHorizontal },
   { id: "connection", label: "账户与连接", Icon: Cable },
+  { id: "models", label: "模型", Icon: Cpu },
+  { id: "data", label: "数据源", Icon: Database },
   { id: "demo", label: "演示检查", Icon: FlaskConical },
 ] as const;
 
@@ -77,6 +79,12 @@ export function ConnectionDialog({
           </section>
           <section id={`${id}-panel-connection`} role="tabpanel" aria-labelledby={`${id}-tab-connection`} hidden={activeTab !== "connection"} tabIndex={0}>
             <ConnectionSettings onClose={onClose} />
+          </section>
+          <section id={`${id}-panel-models`} role="tabpanel" aria-labelledby={`${id}-tab-models`} hidden={activeTab !== "models"} tabIndex={0}>
+            <ModelSettings openDataSources={() => setTab("data")} />
+          </section>
+          <section id={`${id}-panel-data`} role="tabpanel" aria-labelledby={`${id}-tab-data`} hidden={activeTab !== "data"} tabIndex={0}>
+            <DataSourceSettings active={activeTab === "data"} />
           </section>
           {mode === "demo" && <section id={`${id}-panel-demo`} role="tabpanel" aria-labelledby={`${id}-tab-demo`} hidden={activeTab !== "demo"} tabIndex={0}>
             <DemoSettings onClose={onClose} />

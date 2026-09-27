@@ -1,4 +1,6 @@
 import { defineConfig } from "@playwright/test";
+const port = Number(process.env.AURORA_TEST_PORT || 5174);
+const baseURL = `http://127.0.0.1:${port}`;
 export default defineConfig({
   testDir: "./tests/e2e",
   timeout: 30000,
@@ -7,7 +9,7 @@ export default defineConfig({
   workers: 1,
   reporter: [["list"], ["html", { open: "never", outputFolder: "artifacts/playwright-report" }]],
   use: {
-    baseURL: "http://127.0.0.1:5174",
+    baseURL,
     viewport: { width: 1440, height: 900 },
     colorScheme: "light",
     headless: true,
@@ -15,7 +17,7 @@ export default defineConfig({
       cookies: [],
       origins: [
         {
-          origin: "http://127.0.0.1:5174",
+          origin: baseURL,
           localStorage: [{ name: "aurora-data-mode", value: '"demo"' }],
         },
       ],
@@ -25,8 +27,8 @@ export default defineConfig({
   },
   outputDir: "artifacts/test-results",
   webServer: {
-    command: "pnpm dev",
-    url: "http://127.0.0.1:5174",
+    command: `pnpm exec vite --host 127.0.0.1 --port ${port} --strictPort`,
+    url: baseURL,
     reuseExistingServer: true,
     timeout: 30000,
   },

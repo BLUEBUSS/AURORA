@@ -4,10 +4,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const forbiddenDirectories = new Set([
-  "node_modules", "dist", "dist-runtime", ".aurora-state", ".runtime", "artifacts", "credentials", "sessions",
+  "node_modules", "dist", "dist-runtime", ".aurora-state", ".runtime", "artifacts", "credentials", "sessions", "private",
 ]);
 const forbiddenNames = new Set([
-  ".config.env", "auth-profiles.json", "openclaw.json", "models.json",
+  ".config.env", "auth-profiles.json", "openclaw.json", "models.json", "model.json", "instance.json",
 ]);
 const textExtensions = /\.(?:[cm]?[jt]sx?|json|ya?ml|md|txt|html|css|ps1|cmd|sh|svg|toml)$/i;
 const secretPatterns = [
@@ -24,8 +24,8 @@ export function inspectPublicFile(filename, text = "") {
   const basename = parts.at(-1);
   const findings = [];
   if (parts.some((part) => forbiddenDirectories.has(part)) ||
-      forbiddenNames.has(basename) ||
-      (basename.startsWith(".env") && basename !== ".env.example")) {
+      forbiddenNames.has(basename) || /(?:^|[-_.])(?:api[-_]?key|credentials|secrets)(?=[-_.]|$).*\.(?:txt|json|ya?ml|env)$/i.test(basename) ||
+      (basename.startsWith(".env") && basename !== ".env.example") || /(?:^|\/)research\/[a-f\d]{64}\.json$/i.test(file)) {
     findings.push({ file, line: 0, rule: "private-or-generated-file" });
   }
   for (const [index, line] of text.split(/\r?\n/).entries()) {

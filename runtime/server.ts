@@ -9,8 +9,12 @@ import { WorkspaceFiles, resolveSafePath } from "./files/index.js";
 import { fileRoutes } from "./file-routes.js";
 import { serveStatic } from "./static.js";
 import { HttpError } from "./errors.js";
+import { ModelStore } from "./models/index.js";
+import { modelRoutes } from "./models/routes.js";
+import { ResearchEngine, attachResearchGateway } from "./engine/index.js";
+import { DataSourceStore, dataSourceRoutes, createDataProbe, type DataProbe } from "./data-sources/index.js";
 
-export interface RuntimeOptions { port?: number; stateDirectory?: string; staticDirectory?: string }
+export interface RuntimeOptions { port?: number; stateDirectory?: string; staticDirectory?: string; dataSourceProbe?: DataProbe }
 
 export async function startRuntime(options: RuntimeOptions = {}) {
   const port = options.port ?? 5174;
@@ -21,6 +25,13 @@ export async function startRuntime(options: RuntimeOptions = {}) {
   const workspaceRoot = await resolveSafePath(state.root, "workspace/main", true);
   const files = new WorkspaceFiles(workspaceRoot);
   await files.initialize();
+  const models = new ModelStore(state.root);
+  await models.initialize();
+  const sources = new DataSourceStore(state.root);
+  await sources.initialize(models.view().model?.secUserAgent);
+  const probe = options.dataSourceProbe ?? createDataProbe();
+  const research = new ResearchEngine(state.root, state.instanceId, models, files, sources);
+  await research.initialize();
   let origin = "";
   let security: LocalAccess;
   const server = createServer(async (req, res) => {
@@ -32,7 +43,7 @@ export async function startRuntime(options: RuntimeOptions = {}) {
       security.checkRequest(req, !api && ["GET", "HEAD"].includes(req.method || ""));
       if (url.pathname === "/healthz") {
         method(req, ["GET"]);
-        json(res, 200, { ok: true, service: "aurora-runtime", researchReady: false });
+        json(res, 200, { ok: true, service: "aurora-runtime", researchReady: true, modelConfigured: models.view().configured });
         return;
       }
       if (url.pathname === "/fin-core/api/local-session") {
@@ -48,10 +59,12 @@ export async function startRuntime(options: RuntimeOptions = {}) {
           json(res, 200, {
             agentNameMap: { main: "AURORA" },
             currentUser: { id: state.instanceId, username: "本机工作区", agentId: "main", allowedAgents: ["main"] },
-            runtime: { kind: "aurora", researchReady: false, setupRequired: true },
+            runtime: { kind: "aurora", researchReady: true, setupRequired: !models.view().configured },
           });
           return;
         }
+        if (await modelRoutes(req, res, url, models, () => research.busy)) return;
+        if (await dataSourceRoutes(req, res, url, sources, models, () => research.busy, probe)) return;
         if (url.pathname === "/fin-core/backend/auth/logout") {
           method(req, ["POST"]);
           security.revoke(req, res);
@@ -59,17 +72,14 @@ export async function startRuntime(options: RuntimeOptions = {}) {
           return;
         }
         if (await fileRoutes(req, res, url, files)) return;
-        throw new HttpError(503, "RESEARCH_NOT_READY", "本机服务已启动，研究引擎接入尚未完成。");
+        throw new HttpError(404, "NOT_AVAILABLE", "此接口尚未提供。");
       }
       await serveStatic(req, res, url, staticDirectory);
     } catch (error) { reportError(res, error); }
   });
   server.requestTimeout = 30_000;
   server.headersTimeout = 10_000;
-  server.on("upgrade", (req, socket) => {
-    try { security.requireSession(req); socket.end("HTTP/1.1 503 Service Unavailable\r\nConnection: close\r\n\r\n"); }
-    catch { socket.end("HTTP/1.1 403 Forbidden\r\nConnection: close\r\n\r\n"); }
-  });
+  const closeResearch = attachResearchGateway(server, () => security, research);
   await new Promise<void>((resolve, reject) => {
     server.once("error", reject);
     server.listen(port, "127.0.0.1", () => {
@@ -83,9 +93,9 @@ export async function startRuntime(options: RuntimeOptions = {}) {
   });
   return {
     origin, state,
-    close: () => new Promise<void>((resolve, reject) => {
+    close: async () => { await closeResearch(); await new Promise<void>((resolve, reject) => {
       server.close((error) => error ? reject(error) : resolve());
       server.closeAllConnections();
-    }),
+    }); },
   };
 }

@@ -5,6 +5,7 @@ export {
   switchToDemo,
   logoutResearch,
   selectResearch,
+  updateResearchSession,
   sendResearch,
   stopResearch,
   retryResearch,

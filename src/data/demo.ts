@@ -16,9 +16,10 @@ export const companies: Company[] = [
   { ticker: "MSFT", name: "Microsoft", color: "#2676b7" },
   { ticker: "MRVL", name: "Marvell", color: "#bd4343" },
   { ticker: "AMZN", name: "Amazon", color: "#b8832c" },
+  { ticker: "SNDK", name: "Sandisk", logo: "/logos/sandisk.svg", color: "#e21c2a" },
 ];
 export function inferCompany(text: string): Company | undefined {
-  const aliases: Record<string, string> = { NVDA: "英伟达", TSM: "台积电" };
+  const aliases: Record<string, string> = { NVDA: "英伟达", TSM: "台积电", SNDK: "闪迪" };
   const matched = companies.filter(
     (c) =>
       new RegExp(`\\b${c.ticker}\\b|${c.name}`, "i").test(text) ||

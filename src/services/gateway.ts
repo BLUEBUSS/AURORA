@@ -136,6 +136,7 @@ export class GatewayClient {
           ),
         ),
         currentUser: nextUser,
+        ...(record(raw.runtime)?.kind === "aurora" ? { runtime: { kind: "aurora" as const, researchReady: record(raw.runtime)?.researchReady === true, setupRequired: record(raw.runtime)?.setupRequired === true } } : {}),
       };
       return this.bootstrapData;
     } catch (error) {

@@ -14,6 +14,7 @@ const statusLabels = {
 
 export function ConnectionSettings({ onClose }: { onClose: () => void }) {
   const connection = useConnection();
+  const native = connection.runtime?.kind === "aurora";
   const mode = useWorkspace((state) => state.mode);
   const projects = useWorkspace((state) => state.projects);
   const liveScope = useWorkspace((state) => state.liveScope);
@@ -66,7 +67,7 @@ export function ConnectionSettings({ onClose }: { onClose: () => void }) {
   return <>
     <h3 className="settings-title">账户与连接</h3>
     <p className="settings-description">
-      {mode === "demo" ? "本地演示不会调用真实 AI 或定时服务。" : "使用原有账户与后端研究会话。"}
+      {mode === "demo" ? "本地演示不会调用真实 AI 或定时服务。" : native ? "使用当前设备的 AURORA 工作区，研究数据保存在本机。旧工作区数据不会自动迁入。" : "使用原有账户与后端研究会话。"}
     </p>
     <div className="settings-account-row">
       <div className="settings-account-copy">
@@ -92,12 +93,12 @@ export function ConnectionSettings({ onClose }: { onClose: () => void }) {
         {connection.busy ? <Loader2 size={15} className="spin" aria-hidden="true" /> : <Cable size={15} aria-hidden="true" />}
         连接现有后端
       </button>
-      <button type="button" className="page-button" disabled={disabled} aria-expanded={loginOpen} aria-controls={`${id}-login`}
+      {!native && <button type="button" className="page-button" disabled={disabled} aria-expanded={loginOpen} aria-controls={`${id}-login`}
         onClick={() => { setLoginOpen((open) => !open); setFormError(""); }}>
         {loginOpen ? "收起登录" : "账号登录"}
-      </button>
+      </button>}
     </div>
-    {loginOpen && <form id={`${id}-login`} className="settings-login-form" onSubmit={submit}>
+    {loginOpen && !native && <form id={`${id}-login`} className="settings-login-form" onSubmit={submit}>
       <div className="settings-login-fields">
         <Field label="原有账号"><input name="username" autoComplete="username" required disabled={disabled} value={username} onChange={(event) => { setUsername(event.target.value); setFormError(""); }} /></Field>
         <Field label="密码"><input name="password" type="password" autoComplete="current-password" required disabled={disabled} value={password} onChange={(event) => { setPassword(event.target.value); setFormError(""); }} /></Field>
@@ -108,7 +109,7 @@ export function ConnectionSettings({ onClose }: { onClose: () => void }) {
     </form>}
     {mode === "live" && <div className="settings-account-actions">
       <button type="button" className="page-button" disabled={disabled} onClick={() => { if (!disabled) { switchToDemo(); onClose(); } }}>返回本地演示</button>
-      <button type="button" className="page-button settings-logout" disabled={disabled} onClick={() => void logout()}>退出账号</button>
+      <button type="button" className="page-button settings-logout" disabled={disabled} onClick={() => void logout()}>{native ? "断开本机连接" : "退出账号"}</button>
     </div>}
   </>;
 }

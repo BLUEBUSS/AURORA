@@ -12,6 +12,8 @@ test("production runtime establishes an HttpOnly local session and protects real
   try {
     // No route mocks: this is the compiled frontend talking to the real local server.
     await page.goto(runtime.origin);
+    await expect(page.getByRole("dialog", { name: "工作台设置" })).toBeVisible();
+    await page.getByRole("button", { name: "关闭对话框" }).click();
     await expect(page.getByRole("button", { name: "新建研究", exact: false }).first()).toBeVisible();
     await expect.poll(async () => (await context.cookies(runtime.origin)).some((cookie) => cookie.name === "aurora_local_session" && cookie.httpOnly && cookie.sameSite === "Strict")).toBe(true);
     const result = await page.evaluate(async () => {
@@ -22,10 +24,12 @@ test("production runtime establishes an HttpOnly local session and protects real
       const invalid = await fetch("/fin-core/workspace-api/upload", { method: "POST", headers: { "X-Filename": "..%2Foutside.txt" }, body: "no write" });
       return { engineReady: boot.runtime.researchReady, tokenExposed: "gatewayToken" in boot, uploadStatus: upload.status, read, invalidStatus: invalid.status };
     });
-    expect(result).toEqual({ engineReady: false, tokenExposed: false, uploadStatus: 200, read: "REAL_LOCAL_FILE", invalidStatus: 400 });
+    expect(result).toEqual({ engineReady: true, tokenExposed: false, uploadStatus: 200, read: "REAL_LOCAL_FILE", invalidStatus: 400 });
     const rejected = await context.request.get(runtime.origin + "/fin-core/backend/files", { headers: { Origin: "https://outside.invalid" } });
     expect(rejected.status()).toBe(403);
     await page.reload();
+    await expect(page.getByRole("dialog", { name: "工作台设置" })).toBeVisible();
+    await page.getByRole("button", { name: "关闭对话框" }).click();
     await expect(page.getByRole("button", { name: "新建研究", exact: false }).first()).toBeVisible();
     expect(await page.evaluate(async () => (await (await fetch("/fin-core/backend/files")).json()).files.length)).toBe(1);
     expect(errors).toEqual([]);

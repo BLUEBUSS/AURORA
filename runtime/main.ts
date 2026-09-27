@@ -16,7 +16,7 @@ try {
     stateDirectory: argument("--state-dir"),
   });
   console.log(`AURORA local service: ${runtime.origin}`);
-  console.log("Local files and application shell ready. Research engine integration is not yet complete.");
+  console.log("Local research service ready. Configure your own model API in Settings before starting research.");
   let closing = false;
   const close = () => {
     if (closing) return;

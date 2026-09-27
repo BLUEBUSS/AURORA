@@ -160,7 +160,7 @@ export function completeCore(
   ops.push({ type: "round/complete", roundId: round.id, status, reason, timestamp: Date.now() });
   saveCore(sessionId, applyOps(core, ops));
 }
-export function restoreCore(sessionId: string, messages: unknown[], resume = false) {
+export function restoreCore(sessionId: string, messages: unknown[], resume = false, states: Array<{ userTimestamp: number; status: string }> = []) {
   let ops = historyToOps(
     messages.filter((m): m is HistoryMessage => !!m && typeof m === "object"),
     sessionId,
@@ -178,7 +178,13 @@ export function restoreCore(sessionId: string, messages: unknown[], resume = fal
       );
     }
   }
-  saveCore(sessionId, applyOps(createInitialChatState(), ops));
+  const core = applyOps(createInitialChatState(), ops);
+  if (states.length) core.rounds = core.rounds.map((round) => {
+    if (resume && round.id === core.activeRoundId) return round;
+    const state = states.find((state) => state.userTimestamp === round.userMessage.timestamp);
+    return state?.status === "aborted" ? { ...round, status: "aborted" as const } : state?.status === "error" ? { ...round, status: "failed" as const, failureReason: "该轮研究未完成。" } : round;
+  });
+  saveCore(sessionId, core);
 }
 export function recordProvenancePatch(sessionId: string, data: Record<string, unknown>) {
   const prior = provenancePatches.get(sessionId) || {};

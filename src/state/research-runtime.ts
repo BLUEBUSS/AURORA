@@ -2,6 +2,7 @@ import { create } from "zustand";
 import {
   gateway,
   GatewayError,
+  extractMessageText,
   type Bootstrap,
   type ModelRecord,
   type GatewayStatus,
@@ -32,12 +33,14 @@ import {
   resetRuns,
 } from "./research-runs";
 import { displayUserText, withResearchMode } from "./research-content";
+import { recordArtifactEvent, restoreGeneratedFiles } from "./live-artifacts";
 type ConnectionState = {
   status: GatewayStatus;
   user: Bootstrap["currentUser"];
   models: ModelRecord[];
   error: string;
   busy: boolean;
+  runtime?: Bootstrap["runtime"];
 };
 export const useConnection = create<ConnectionState>(() => ({
   status: "idle",
@@ -81,11 +84,12 @@ export function connectResearch(credentials?: {
       if (epoch !== generation) return false;
       const sessions: Session[] = rows.sessions.map((s) => ({
         id: s.key,
+        archived: s.archived,
         title: displayUserText(s.derivedTitle || s.displayName || s.label || "研究会话"),
         updatedAt: s.updatedAt || Date.now(),
         messages: [],
         origin: "live",
-        company: inferCompany(s.derivedTitle || s.displayName || ""),
+        company: inferCompany(displayUserText(s.derivedTitle || s.displayName || s.label || "")),
         model:
           s.providerOverride && s.modelOverride
             ? `${s.providerOverride}/${s.modelOverride}`
@@ -114,7 +118,7 @@ export function connectResearch(credentials?: {
       stopAllDemo();
       clearCore();
       resetRuns(false);
-      useConnection.setState({ user: bootstrap.currentUser, models: catalog.models });
+      useConnection.setState({ user: bootstrap.currentUser, models: catalog.models, runtime: bootstrap.runtime });
       useWorkspace.getState().enterLive(
         sessions,
         user ? { userId: user.id, agentId: user.agentId || "main" } : null,
@@ -154,6 +158,20 @@ export function initializeResearch() {
         useWorkspace.getState().notify(useConnection.getState().error || "研究后端尚未连接，可在账户与连接中重试或登录。", "error");
     });
 }
+export async function updateResearchSession(id: string, change: { title?: string; archived?: boolean }) {
+  const state = useWorkspace.getState();
+  if (state.sessions.find((session) => session.id === id)?.messages.some((message) => message.phase === "running")) {
+    state.notify("请先停止当前研究，再修改会话。", "error"); return;
+  }
+  try {
+    if (state.mode === "live" && !id.startsWith("pending-")) {
+      if (useConnection.getState().runtime?.kind !== "aurora") throw new Error("旧后端尚未接通此项持久化，请在原入口管理会话。");
+      await gateway.request("sessions.patch", { key: id, ...(change.title !== undefined ? { label: change.title } : {}), ...(change.archived !== undefined ? { archived: change.archived } : {}) });
+    }
+    if (change.title !== undefined) state.renameSession(id, change.title);
+    if (change.archived !== undefined && !!useWorkspace.getState().sessions.find((session) => session.id === id)?.archived !== change.archived) state.archiveSession(id);
+  } catch (error) { state.notify(errText(error), "error"); }
+}
 export function switchToDemo() {
   ++generation;
   resetRuns();
@@ -175,7 +193,7 @@ export async function logoutResearch() {
     // Gateway clears its token even when the HTTP logout fails. UI state must
     // follow that local boundary instead of retaining the previous user's data.
     switchToDemo();
-    useConnection.setState({ user: null, models: [], error: errorMessage });
+    useConnection.setState({ user: null, models: [], error: errorMessage, runtime: undefined });
   }
 }
 export async function selectResearch(id: string, force = false, activate = true) {
@@ -194,8 +212,8 @@ export async function selectResearch(id: string, force = false, activate = true)
   }));
   const promise = (async () => {
     try {
-      const pending = rememberedRuns().find((r) => r.sessionId === id);
-      const [result, runStatus] = await Promise.all([
+      let pending = rememberedRuns().find((r) => r.sessionId === id);
+      const [result, statusFromWait] = await Promise.all([
         gateway.history(id, 500),
         pending
           ? gateway
@@ -207,10 +225,18 @@ export async function selectResearch(id: string, force = false, activate = true)
           : Promise.resolve(null),
       ]);
       if (epoch !== generation || useWorkspace.getState().mode !== "live") return;
+      let runStatus = statusFromWait;
+      if (!pending && result.lastRun?.status === "running") {
+        const user = result.messages.findLast((message) => !!message && typeof message === "object" && "role" in message && message.role === "user") as { content?: unknown; timestamp?: number } | undefined;
+        const text = extractMessageText(user);
+        pending = { runId: result.lastRun.runId, sessionId: id, stage: "accepted", startedAt: result.lastRun.userTimestamp, userMessage: { id: crypto.randomUUID(), role: "user", text, time: result.lastRun.userTimestamp } };
+        runStatus = { status: "timeout" };
+      }
       const unsent = pending?.stage === "preparing";
       const resume =
         !!pending && (unsent || runStatus?.status === "timeout" || runStatus?.status === "unknown");
-      restoreCore(id, result.messages, false);
+      restoreCore(id, result.messages, false, result.roundStates);
+      restoreGeneratedFiles(id, result.messages);
       const existing = getCore(id);
       const lastRound = existing.rounds.at(-1);
       const sameQuestion =
@@ -226,7 +252,7 @@ export async function selectResearch(id: string, force = false, activate = true)
         typeof lastRound?.userMessage.timestamp === "number" &&
         lastRound.userMessage.timestamp >= pending.userMessage.time;
       const pendingInHistory = sameQuestion && (enoughRounds || matchingTime);
-      if (resume && pendingInHistory) restoreCore(id, result.messages, true);
+      if (resume && pendingInHistory) restoreCore(id, result.messages, true, result.roundStates);
       else if (resume && pending?.userMessage) startCoreRound(id, pending.userMessage);
       if (resume && getCore(id).activeRoundId && !getCore(id).activeMessageId) {
         applyCoreEvent(id, "agent", { stream: "assistant", data: { phase: "message_start" } });
@@ -255,7 +281,7 @@ export async function selectResearch(id: string, force = false, activate = true)
           } else if (!resume)
             finishRun(
               pending.runId,
-              runStatus?.status === "error" ? "failed" : "done",
+              result.lastRun?.status === "aborted" ? "aborted" : runStatus?.status === "error" ? "failed" : "done",
               runStatus?.status === "error" ? "后端执行失败，请核对历史。" : undefined,
             );
         }
@@ -277,7 +303,7 @@ export async function selectResearch(id: string, force = false, activate = true)
         historyRequests.delete(id);
         const events = historyEvents.get(id) || [];
         historyEvents.delete(id);
-        for (const frame of events) ingestEvent(frame.event, frame.payload);
+        for (const frame of events) { ingestEvent(frame.event, frame.payload); recordArtifactEvent(frame.event, frame.payload); }
       }
     }
   })();
@@ -531,6 +557,7 @@ const unsubscribeEvents = gateway.subscribe((event, payload) => {
     return;
   }
   ingestEvent(event, payload);
+  recordArtifactEvent(event, payload);
 });
 const unsubscribeStatus = gateway.subscribeStatus((status) => {
   useConnection.setState({ status });

@@ -1,0 +1,50 @@
+{
+  "baseline": "fdf117722187597b552b55cd59afce92f60e04df",
+  "files": [
+    {
+      "file": "task-types.ts",
+      "source": "task-store.ts",
+      "sourceSha256": "4cee3fd3e395096fd66552a18127113c32c631d66e13fc991b5efa239d30c819"
+    },
+    {
+      "file": "task-ids.ts",
+      "source": "task-store.ts",
+      "sourceSha256": "4cee3fd3e395096fd66552a18127113c32c631d66e13fc991b5efa239d30c819"
+    },
+    {
+      "file": "task-state.ts",
+      "source": "task-store.ts",
+      "sourceSha256": "4cee3fd3e395096fd66552a18127113c32c631d66e13fc991b5efa239d30c819"
+    },
+    {
+      "file": "task-store.ts",
+      "source": "task-store.ts",
+      "sourceSha256": "4cee3fd3e395096fd66552a18127113c32c631d66e13fc991b5efa239d30c819"
+    },
+    {
+      "file": "subagent-types.ts",
+      "source": "subagent-types.ts",
+      "sourceSha256": "df66a7963113380746d38af36397097107a4c8e570b17faf144cecdbafbdf78a"
+    },
+    {
+      "file": "task-nav.ts",
+      "source": "task-nav.ts",
+      "sourceSha256": "94736279fc72525bb9ebacf62d9d27c95533e5a1611473d8943fd484471e7560"
+    },
+    {
+      "file": "task-store.test.ts",
+      "source": "task-store.test.ts",
+      "sourceSha256": "63bd77f6bc27628308f00e0f84cd7bdee3637a6eeb741f679b5f63ee11e83a6c"
+    },
+    {
+      "file": "tools/task-create.ts",
+      "source": "tools/task-create.ts",
+      "sourceSha256": "05a085726b09e8776894c29128eeadbcbd3c54e411317919ee6a174f1fe465fe"
+    },
+    {
+      "file": "tools/task-update.ts",
+      "source": "tools/task-update.ts",
+      "sourceSha256": "a5fa6528715687c45cd4d549c129ecb016f3a55e8ed1a65bc02d44b7dfb77ead"
+    }
+  ]
+}

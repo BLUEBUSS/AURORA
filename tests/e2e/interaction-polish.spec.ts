@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-test("sidebar omits redundant heading and independent-chat icons while retaining project identities", async ({
+test("sidebar shows identified company logos and keeps general chats as text", async ({
   page,
 }) => {
   await page.goto("/");
@@ -9,8 +9,13 @@ test("sidebar omits redundant heading and independent-chat icons while retaining
   await page.getByRole("button", { name: "停止研究", exact: true }).click();
   const chats = page.getByRole("region", { name: "独立聊天" });
   const projects = page.getByRole("region", { name: "项目列表" });
-  await expect(chats.getByRole("button", { name: "NVDA 独立聊天", exact: true })).toBeVisible();
-  await expect(chats.locator(".company-logo")).toHaveCount(0);
+  await expect(chats.getByRole("button", { name: /^NVDA 独立聊天/ })).toBeVisible();
+  await expect(chats.locator('.company-logo[data-ticker="NVDA"] img')).toHaveAttribute("src", "/logos/nvidia.svg");
+  await page.getByRole("button", { name: "新建研究", exact: false }).first().click();
+  await page.getByRole("textbox", { name: "研究问题" }).fill("普通研究问题");
+  await page.getByRole("button", { name: "发送研究问题" }).click();
+  await page.getByRole("button", { name: "停止研究", exact: true }).click();
+  await expect(chats.getByRole("button", { name: "普通研究问题", exact: true }).locator(".company-logo")).toHaveCount(0);
   await expect(projects.locator(".company-logo img")).toHaveCount(2);
   await page
     .locator(".sidebar")

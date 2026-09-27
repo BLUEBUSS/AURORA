@@ -2,8 +2,15 @@ node_modules/
 dist/
 dist-runtime/
 .aurora-state/
+**/private/
+**/instance.json
+**/research/*.json
 .env*
 !.env.example
 .runtime/
+*-apikey.txt
+*-api-key.txt
+secrets.json
+secrets.yaml
 artifacts/
 *.tsbuildinfo

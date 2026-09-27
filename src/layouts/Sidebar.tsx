@@ -10,7 +10,7 @@ import {
   Search,
 } from "lucide-react";
 import { useWorkspace } from "../state";
-import { selectResearch } from "../state/research";
+import { selectResearch, updateResearchSession } from "../state/research";
 import { CompanyLogo, Field, IconButton, Modal } from "../components/ui";
 import { Wordmark } from "../components/brand";
 import { WorkspaceMenu } from "./WorkspaceMenu";
@@ -200,7 +200,7 @@ export function Sidebar({ openSettings }: { openSettings: (tab?: SettingsTab) =>
           </div>
           {sessions
             .filter((t) => !t.projectId || !s.projects.some((p) => p.id === t.projectId))
-            .map((t) => row(t, false))}
+            .map((t) => row(t, !!t.company))}
           {!sessions.some((t) => !t.projectId || !s.projects.some((p) => p.id === t.projectId)) && (
             <p className="sidebar-empty">
               {search ? "没有找到相关聊天" : archived ? "暂无归档聊天" : "暂无独立聊天"}
@@ -228,7 +228,7 @@ export function Sidebar({ openSettings }: { openSettings: (tab?: SettingsTab) =>
             className="page-form"
             onSubmit={(e) => {
               e.preventDefault();
-              s.renameSession(menu.id, title);
+              void updateResearchSession(menu.id, { title });
               s.assignProject(menu.id, project || undefined);
               setMenu(null);
             }}
@@ -266,7 +266,7 @@ export function Sidebar({ openSettings }: { openSettings: (tab?: SettingsTab) =>
                 type="button"
                 className="page-button"
                 onClick={() => {
-                  s.archiveSession(menu.id);
+                  void updateResearchSession(menu.id, { archived: !menu.archived });
                   setMenu(null);
                 }}
               >

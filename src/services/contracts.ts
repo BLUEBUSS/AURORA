@@ -12,10 +12,12 @@ export interface WebUser {
 export interface Bootstrap {
   agentNameMap: Record<string, string>;
   currentUser: WebUser | null;
+  runtime?: { kind: "aurora"; researchReady: boolean; setupRequired: boolean };
 }
 
 export interface SessionRecord {
   key: string;
+  archived?: boolean;
   sessionId?: string;
   displayName?: string;
   derivedTitle?: string;
@@ -39,6 +41,8 @@ export interface HistoryResult {
   sessionId?: string;
   messages: unknown[];
   thinkingLevel?: string;
+  roundStates?: Array<{ runId: string; userTimestamp: number; status: "running" | "ok" | "error" | "aborted" }>;
+  lastRun?: { runId: string; userTimestamp: number; status: "running" | "ok" | "error" | "aborted" };
 }
 export interface ModelRecord {
   id: string;

@@ -2,8 +2,18 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { inspectPublicFile } from "./check-public-source.mjs";
 
+test("allows data adapter source while continuing to reject personal key files", () => {
+  for (const file of ["runtime/financial/index.ts", "runtime/engine/financial-tools.ts", "runtime/engine/web-search.ts"]) {
+    assert.deepEqual(inspectPublicFile(file), []);
+  }
+  assert.deepEqual(inspectPublicFile("runtime/engine/events.ts", ""), []);
+  for (const file of ["kimi-apikey.txt", "user-api-key.json", "secrets.yaml"]) {
+    assert.equal(inspectPublicFile(file)[0]?.rule, "private-or-generated-file");
+  }
+});
+
 test("rejects private configuration and generated artifacts even if tracked", () => {
-  for (const file of [".env", ".env.production", ".config.env", ".runtime/log.txt", "artifacts/a.png", "state/auth-profiles.json"]) {
+  for (const file of [".env", ".env.production", ".config.env", ".runtime/log.txt", "artifacts/a.png", "state/auth-profiles.json", "state/private/model.json", "state/instance.json", `state/research/${"a".repeat(64)}.json`]) {
     assert.equal(inspectPublicFile(file)[0]?.rule, "private-or-generated-file");
   }
   assert.deepEqual(inspectPublicFile(".env.example", "MODEL_KEY=your-key-here"), []);

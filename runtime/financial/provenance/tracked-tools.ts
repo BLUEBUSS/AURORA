@@ -1,0 +1,17 @@
+export const PROVENANCE_TRACKED_TOOLS = new Set([
+  "crypto_market_data",
+  "crypto_derivatives_data",
+  "crypto_options_data",
+  "crypto_dex_data",
+  "crypto_defi_data",
+  "crypto_onchain_data",
+  "crypto_asset_data",
+  "crypto_sentiment_data",
+  "tradfi_perpetual_data",
+  "macro_indicator_data",
+  "us_equity_market_data",
+  "us_equity_filings",
+  "us_equity_fundamentals",
+  "kline_analysis",
+  "market_pulse",
+]);

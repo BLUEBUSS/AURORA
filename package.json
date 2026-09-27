@@ -12,7 +12,7 @@
     "dev": "vite --host 127.0.0.1 --port 5174 --strictPort",
     "build": "pnpm build:frontend && pnpm build:runtime",
     "build:frontend": "tsc --noEmit && vite build",
-    "build:runtime": "tsc -p tsconfig.runtime.json && esbuild runtime/main.ts --bundle --platform=node --format=esm --target=node22 --outfile=dist-runtime/main.mjs",
+    "build:runtime": "tsc -p tsconfig.runtime.json && esbuild runtime/main.ts --bundle --packages=external --platform=node --format=esm --target=node22 --outfile=dist-runtime/main.mjs && node scripts/copy-runtime-skills.mjs",
     "start": "node dist-runtime/main.mjs",
     "preview": "vite preview --host 127.0.0.1 --port 5174 --strictPort",
     "typecheck": "tsc --noEmit && tsc -p tsconfig.runtime.json",
@@ -24,11 +24,17 @@
     "test:release": "node --test scripts/check-public-source.test.mjs"
   },
   "dependencies": {
+    "@mariozechner/pi-agent-core": "0.73.1",
+    "@mariozechner/pi-ai": "0.73.1",
+    "@sinclair/typebox": "0.34.48",
     "lucide-react": "^0.468.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-markdown": "^10.1.0",
     "remark-gfm": "^4.0.1",
+    "typebox": "1.1.24",
+    "undici": "^7.29.1",
+    "ws": "8.21.3",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
@@ -38,12 +44,16 @@
     "@types/node": "^22.0.0",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
+    "@types/ws": "^8.18.1",
     "@vitejs/plugin-react": "^4.3.4",
+    "ajv": "^8.20.0",
     "esbuild": "0.25.12",
     "jsdom": "^26.1.0",
     "oxlint": "^1.57.0",
     "typescript": "~5.7.2",
     "vite": "^6.0.5",
     "vitest": "^4.1.11"
-  }
+  },
+  "license": "MIT",
+  "description": "Local AI research workspace for equities, AI infrastructure and related markets. Bring your own model and data API keys."
 }

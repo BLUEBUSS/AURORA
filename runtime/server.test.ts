@@ -62,14 +62,14 @@ it("rejects a forged Host even on a loopback socket", async () => {
   expect(status).toBe(403);
 });
 
-it("returns no model or gateway secret and reports the research engine as not ready", async () => {
+it("returns no model or gateway secret and requires user model configuration", async () => {
   await login();
   const response = await fetch(app.origin + "/fin-core/api/bootstrap", { headers: headers() });
   const data = await response.json() as { currentUser: { id: string }; runtime: object };
   expect(data.currentUser.id).toBe(app.state.instanceId);
-  expect(data.runtime).toEqual({ kind: "aurora", researchReady: false, setupRequired: true });
+  expect(data.runtime).toEqual({ kind: "aurora", researchReady: true, setupRequired: true });
   expect(data).not.toHaveProperty("gatewayToken");
-  expect((await fetch(app.origin + "/fin-core/api/models", { headers: headers() })).status).toBe(503);
+  expect((await fetch(app.origin + "/fin-core/api/models", { headers: headers() })).status).toBe(404);
 });
 
 it("uploads and downloads actual files behind the local session", async () => {

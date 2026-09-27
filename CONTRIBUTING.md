@@ -1,15 +1,16 @@
 # Contributing
 
-AURORA is preparing an independent open-source release. The frontend runs on its own; the distributable backend and first-run model setup are still being prepared. Do not assume a passing frontend check proves the complete product is ready to publish.
+AURORA is an MIT-licensed Alpha with an independent local frontend/backend, Agent runtime and user-owned model/data settings. See README for current capability boundaries. Tests and development must not depend on personal keys or research state.
 
 Use Node.js 24 and pnpm 11.19.0 for the currently validated development toolchain:
 
 ```sh
 pnpm install --frozen-lockfile
-pnpm dev
+pnpm build
+pnpm start
 ```
 
-Choose the local demo in settings if no compatible backend is available. Do not copy another person's runtime configuration, API keys or research data. The existing PowerShell backend launcher is a developer compatibility tool, not the independent release installer.
+Configure your own model through settings, or select the clearly marked demo. Do not copy another person's runtime configuration, API keys or research data. The existing PowerShell backend launcher is a developer compatibility tool, not the independent release installer.
 
 Before requesting review:
 
